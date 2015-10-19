@@ -24,7 +24,7 @@ $(OBJ_CATALOG)%.o:%.c
 	$(CXX) $(CFLAGS) -c $< -o $@
 
 $(DEPEND_CATALOG)%.d:%.c
-	$(CXX) -MM -I. $< | sed -e '1s/^/obj\//' > $@
+	$(CXX) -MM -I. $< | sed -e '1s/^/.obj\//' > $@
 
 include $(DEPEND)
 
