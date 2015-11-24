@@ -14,7 +14,7 @@ DEPEND=$(patsubst %.c,$(DEPEND_CATALOG)%.d,$(SOURCE))
 
 AR=ar
 CXX=gcc
-CFLAGS=-g -Wall -I. 
+CFLAGS=-O -Wall -I. 
 ARFLAGS=sru
 
 $(LIB):$(OBJS)
