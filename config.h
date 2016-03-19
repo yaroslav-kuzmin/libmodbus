@@ -1,11 +1,18 @@
-/*****************************************************************************/
-/*                                                                           */
-/* libmodbus : fork  https://github.com/stephane/libmodbus                   */
-/*                                                                           */
-/*****************************************************************************/
+/* config.h.  Generated from config.h.in by configure.  */
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define to 1 if you have the `accept4' function. */
+/* #undef HAVE_ACCEPT4 */
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 /* #undef HAVE_ARPA_INET_H */
+
+/* Define to 1 if you have the <byteswap.h> header file. */
+/* #undef HAVE_BYTESWAP_H */
+
+/* Define to 1 if you have the declaration of `TIOCM_RTS', and to 0 if you
+   don't. */
+#define HAVE_DECL_TIOCM_RTS 0
 
 /* Define to 1 if you have the declaration of `TIOCSRS485', and to 0 if you
    don't. */
@@ -16,7 +23,7 @@
 #define HAVE_DECL___CYGWIN__ 0
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 1
+/* #undef HAVE_DLFCN_H */
 
 /* Define to 1 if you have the <errno.h> header file. */
 #define HAVE_ERRNO_H 1
@@ -123,40 +130,84 @@
 /* Define to 1 if `vfork' works. */
 /* #undef HAVE_WORKING_VFORK */
 
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
+#define LT_OBJDIR ".libs/"
+
+/* Name of package */
+#define PACKAGE "libmodbus"
+
 /* Define to the address where bug reports for this package should be sent. */
+#define PACKAGE_BUGREPORT "kuzmin.yaroslav@gmail.com"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "libmodbus"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libmodbus 3.0.6"
+#define PACKAGE_STRING "libmodbus 3.1.2"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libmodbus"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#define PACKAGE_URL "http://libmodbus.org/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.0.6"
+#define PACKAGE_VERSION "3.1.2"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#define TIME_WITH_SYS_TIME 1
+/* Enable extensions on AIX 3, Interix.  */
+#ifndef _ALL_SOURCE
+# define _ALL_SOURCE 1
+#endif
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE 1
+#endif
+/* Enable threading extensions on Solaris.  */
+#ifndef _POSIX_PTHREAD_SEMANTICS
+# define _POSIX_PTHREAD_SEMANTICS 1
+#endif
+/* Enable extensions on HP NonStop.  */
+#ifndef _TANDEM_SOURCE
+# define _TANDEM_SOURCE 1
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# define __EXTENSIONS__ 1
+#endif
+
 
 /* Version number of package */
-#define VERSION "3.0.6"
+#define VERSION "3.1.2"
 
-/* Define to empty if `const' does not conform to ANSI C. */
-/* #undef const */
+/* _ */
+#define WINVER 0x0501
+
+/* Enable large inode numbers on Mac OS X 10.5.  */
+#ifndef _DARWIN_USE_64_BIT_INODE
+# define _DARWIN_USE_64_BIT_INODE 1
+#endif
+
+/* Number of bits in a file offset, on hosts where this is settable. */
+#define _FILE_OFFSET_BITS 64
+
+/* Define for large files, on AIX-style hosts. */
+/* #undef _LARGE_FILES */
+
+/* Define to 1 if on MINIX. */
+/* #undef _MINIX */
+
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+/* #undef _POSIX_1_SOURCE */
+
+/* Define to 1 if you need to in order for `stat' and other things to work. */
+/* #undef _POSIX_SOURCE */
 
 /* Define to `int' if <sys/types.h> does not define. */
 /* #undef pid_t */
-
-/* Define to `unsigned int' if <sys/types.h> does not define. */
-/* #undef size_t */
 
 /* Define as `fork' if `vfork' does not work. */
 #define vfork fork
