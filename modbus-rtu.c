@@ -234,13 +234,13 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
             return 1;
         } else {
             /* Just timed out */
-						fprintf("error read port timed out :\n");
+						fprintf(stderr,"error read port timed out :\n");
 						fflush(stderr);
             return 0;
         }
     } else {
         /* Some kind of error */
-				fprintf("error read port : %d\n",GetLastError());
+				fprintf(stderr,"error read port : %d\n",GetLastError());
 				fflush(stderr);
         return -1;
     }
