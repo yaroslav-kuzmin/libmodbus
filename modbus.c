@@ -93,7 +93,7 @@ const char *modbus_strerror(int errnum) {
 void _error_print(modbus_t *ctx, const char *context)
 {
     if (ctx->debug) {
-        fprintf(stderr, "ERROR %s (%d)", modbus_strerror(errno));
+        fprintf(stderr, "ERROR %s (%d)", modbus_strerror(errno),errno);
         if (context != NULL) {
             fprintf(stderr, ": %s\n", context);
         } else {
