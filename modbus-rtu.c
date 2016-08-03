@@ -214,8 +214,10 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
         if (msec < 1)
             msec = 1;
     }
+
 		fprintf(stderr,"timeout %d\n",msec);
 	 	fflush(stderr);
+
     comm_to.ReadIntervalTimeout = msec;
     comm_to.ReadTotalTimeoutMultiplier = 0;
     comm_to.ReadTotalTimeoutConstant = msec;
@@ -227,8 +229,10 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
     if ((max_len > PY_BUF_SIZE) || (max_len < 0)) {
         max_len = PY_BUF_SIZE;
     }
+
 		fprintf(stderr,"read port \n");
 	 	fflush(stderr);
+
     if (ReadFile(ws->fd, &ws->buf, max_len, &ws->n_bytes, NULL)) {
         /* Check if some bytes available */
         if (ws->n_bytes > 0) {
@@ -242,7 +246,7 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
         }
     } else {
         /* Some kind of error */
-				fprintf(stderr,"error read port : %d\n",GetLastError());
+				fprintf(stderr,"error read port : %ld\n",GetLastError());
 				fflush(stderr);
         return -1;
     }

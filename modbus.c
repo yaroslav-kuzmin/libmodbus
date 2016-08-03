@@ -133,7 +133,7 @@ int modbus_flush(modbus_t *ctx)
     rc = ctx->backend->flush(ctx);
     if (rc != -1 && ctx->debug) {
         /* Not all backends are able to return the number of bytes flushed */
-        printf("Bytes flushed (%d)\n", rc);
+        fprintf(stderr,"Bytes flushed (%d)\n", rc);
     }
     return rc;
 }
@@ -431,7 +431,8 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
         if (ctx->debug) {
             int i;
             for (i=0; i < rc; i++)
-                printf("<%.2X>", msg[msg_length + i]);
+                fprintf(stderr,"<%.2X>", msg[msg_length + i]);
+						fflush(stderr);
         }
 
         /* Sums bytes received */
@@ -479,7 +480,7 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
     }
 
     if (ctx->debug)
-        printf("\n");
+        fprintf(stderr,"\n");
 
     return ctx->backend->check_integrity(ctx, msg, msg_length);
 }
