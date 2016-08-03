@@ -184,8 +184,9 @@ static int send_msg(modbus_t *ctx, uint8_t *msg, int msg_length)
 
     if (ctx->debug) {
         for (i = 0; i < msg_length; i++)
-            printf("[%.2X]", msg[i]);
-        printf("\n");
+            fprintf(stderr,"[%.2X]", msg[i]);
+        fprintf(stderr,"\n");
+				fflush(stderr);
     }
 
     /* In recovery mode, the write command will be issued until to be
@@ -359,10 +360,11 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
 
     if (ctx->debug) {
         if (msg_type == MSG_INDICATION) {
-            printf("Waiting for a indication...\n");
+            fprintf(stderr,"Waiting for a indication...\n");
         } else {
-            printf("Waiting for a confirmation...\n");
+            fprintf(stderr,"Waiting for a confirmation...\n");
         }
+				fflush(stderr);
     }
 
     /* Add a file descriptor to the set */
@@ -1222,7 +1224,10 @@ static int read_registers(modbus_t *ctx, int function, int addr, int nb,
     }
 
     req_length = ctx->backend->build_request_basis(ctx, function, addr, nb, req);
-
+		if(ctx->debug){
+			fprintf(stderr,"slave request : %d",ctx->slave);
+			fflush(stderr);
+		}
     rc = send_msg(ctx, req, req_length);
     if (rc > 0) {
         int offset;
@@ -1264,6 +1269,7 @@ int modbus_read_registers(modbus_t *ctx, int addr, int nb, uint16_t *dest)
             fprintf(stderr,
                     "ERROR Too many registers requested (%d > %d)\n",
                     nb, MODBUS_MAX_READ_REGISTERS);
+						fflush(stderr);
         }
         errno = EMBMDATA;
         return -1;
