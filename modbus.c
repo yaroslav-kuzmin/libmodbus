@@ -93,12 +93,13 @@ const char *modbus_strerror(int errnum) {
 void _error_print(modbus_t *ctx, const char *context)
 {
     if (ctx->debug) {
-        fprintf(stderr, "ERROR %s", modbus_strerror(errno));
+        fprintf(stderr, "ERROR %s (%d)", modbus_strerror(errno));
         if (context != NULL) {
             fprintf(stderr, ": %s\n", context);
         } else {
             fprintf(stderr, "\n");
         }
+				fflush(stderr);
     }
 }
 
@@ -1225,7 +1226,7 @@ static int read_registers(modbus_t *ctx, int function, int addr, int nb,
 
     req_length = ctx->backend->build_request_basis(ctx, function, addr, nb, req);
 		if(ctx->debug){
-			fprintf(stderr,"slave request : %d",ctx->slave);
+			fprintf(stderr,"slave request : %d\n",ctx->slave);
 			fflush(stderr);
 		}
     rc = send_msg(ctx, req, req_length);
