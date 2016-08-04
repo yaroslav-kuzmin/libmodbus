@@ -174,7 +174,6 @@ static int _modbus_rtu_send_msg_pre(uint8_t *req, int req_length)
 }
 
 #if defined(_WIN32)
-
 /* This simple implementation is sort of a substitute of the select() call,
  * working this way: the win32_ser_select() call tries to read some data from
  * the serial port, setting the timeout as the select() call would. Data read is
@@ -191,6 +190,7 @@ static void win32_ser_init(struct win32_ser *ws) {
     ws->fd = INVALID_HANDLE_VALUE;
 }
 
+static int win32_debug = FALSE;
 /* FIXME Try to remove length_to_read -> max_len argument, only used by win32 */
 static int win32_ser_select(struct win32_ser *ws, int max_len,
                             const struct timeval *tv) {
@@ -226,27 +226,34 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
     if ((max_len > PY_BUF_SIZE) || (max_len < 0)) {
         max_len = PY_BUF_SIZE;
     }
-
-		fprintf(stderr,"read port : ");
-	 	fflush(stderr);
+		if(win32_debug){
+			fprintf(stderr,"read port : ");
+		 	fflush(stderr);
+		}
 
     if (ReadFile(ws->fd, &ws->buf, max_len, &ws->n_bytes, NULL)) {
         /* Check if some bytes available */
         if (ws->n_bytes > 0) {
             /* Some bytes read */
-						fprintf(stderr," %ld\n",ws->n_bytes);
-						fflush(stderr);
+						if(win32_debug){
+							fprintf(stderr," %ld\n",ws->n_bytes);
+							fflush(stderr);
+						}
             return 1;
         } else {
             /* Just timed out */
-						fprintf(stderr,"error timed out : %ld\n",msec);
-						fflush(stderr);
+						if(win32_debug){
+							fprintf(stderr,"error timed out : %ld\n",msec);
+							fflush(stderr);
+						}
             return 0;
         }
     } else {
         /* Some kind of error */
-				fprintf(stderr,"error : %ld\n",GetLastError());
-				fflush(stderr);
+				if(win32_debug){
+					fprintf(stderr,"error : %ld\n",GetLastError());
+					fflush(stderr);
+				}
         return -1;
     }
 }
@@ -1090,6 +1097,7 @@ static int _modbus_rtu_select(modbus_t *ctx, fd_set *rset,
 {
     int s_rc;
 #if defined(_WIN32)
+		win32_debug = ctx->debug;
     s_rc = win32_ser_select(&(((modbus_rtu_t*)ctx->backend_data)->w_ser),
                             length_to_read, tv);
     if (s_rc == 0) {
