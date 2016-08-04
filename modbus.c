@@ -432,6 +432,7 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
             int i;
             for (i=0; i < rc; i++)
                 fprintf(stderr,"<%.2X>", msg[msg_length + i]);
+						fprintf(stderr,"\n");
 						fflush(stderr);
         }
 
