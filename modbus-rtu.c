@@ -243,7 +243,7 @@ static int win32_ser_select(struct win32_ser *ws, int max_len,
         } else {
             /* Just timed out */
 						if(win32_debug){
-							fprintf(stderr,"error timed out : %ld\n",msec);
+							fprintf(stderr,"error timed out : %d\n",msec);
 							fflush(stderr);
 						}
             return 0;
